@@ -1,0 +1,10 @@
+- name: Configurar servidor de banco de dados
+  hosts: db01
+
+  user: vagrant
+  become: yes
+  var_files:
+    -  vars/mains.yml
+  vars:
+    - dbname: "db01"
+    - dbusername: "devopsmaomassa"
