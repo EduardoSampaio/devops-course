@@ -1,0 +1,46 @@
+- name: Configurar servidor de aplicacao java
+  hosts: app01
+
+  user: vagrant
+  become: yes
+
+  vars:
+    dbhost: "db01"
+    dbname: "notes"
+    dbusername: "notesapps"
+    dbpassword: "devopsmaonamassa"
+  tasks:
+    - name: Configurar host lab ansible
+      lineinfile:
+        dest: /etc/hosts
+        state: present
+        line: "{{item}}"
+      with_items:
+        - 192.168.56.155 control-node
+        - 192.168.56.156 app01
+        - 192.168.56.157 db01
+    - name: Adicionar usuario do app
+      user:
+        name: app
+        comment: Usuario da aplicacao
+        uid: 500
+    - name: Instalção do Maven
+      yum:
+        name: maven
+        state: latest
+    - name: Instalacao do java
+      yum:
+        name: java-1.8.0-openjdk
+        state: latest
+    - name: Criação do diretório de app
+      file:
+        path: /opt/notes
+        state: directory
+        owner: app
+        group: app
+    - name: Clone do repositório Notes - app
+      git:
+        repo: "https://github.com/callicoder/spring-boot-mysql-rest-api-tutorial.git"
+        dest: /opt/notes
+        clone: yes
+        force: yes
