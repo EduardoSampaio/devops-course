@@ -1,1 +1,0 @@
-{"nfs":{"/vagrant":{"type":"nfs","guestpath":"/vagrant","hostpath":"/home/esampaio/Documents/devops/ansible-lab/control-node","disabled":false,"nfs_version":4,"nfs_udp":false,"__vagrantfile":true,"map_uid":1000,"map_gid":1000,"uuid":"2061416408","linux__nfs_options":["rw","no_subtree_check","all_squash","anonuid=1000","anongid=1000","fsid=2061416408"]}}}
