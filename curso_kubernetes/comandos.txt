@@ -1,7 +1,9 @@
+kubectl get all
 kubectl get pods
 kubectl get pods --all-namespaces
 kubectl get pods -o wide
 kubectl get replicasets
+kubectl get namespaces
 
 kubectl run my-pod-apache-server --image httpd
 
@@ -12,4 +14,19 @@ kubectl delete replicasets frontend-rs
 kubectl scale replicasets frontend-rs --replicas=5
 
 kubectl create -f my-pod-yaml
-kubectl apply -f pods/my-pod.yaml
+kubectl apply -f pods/my-pod.yaml --namespace=frontend
+
+-- deployment ---
+kubectl rollout status deployments.apps/frontend-deployment
+kubectl rollout history deployments.apps/frontend-deployment
+kubectl rollout pause history deployments.apps/frontend-deployment
+kubectl describe deployments.apps/frontend-deployment
+kubectl delete deployments frontend-deployment
+kubectl scale deployments.apps/frontend-deployment --replicas=11
+
+kubectl exec -it tomcat-pod -- bash
+
+--- namespace ---
+kubectl create namespace frontend --save-config
+kubectl config set-context --current --namespace=frontend
+kubectl delete pods my-pod --namespace=frontend

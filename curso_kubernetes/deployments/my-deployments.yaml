@@ -1,3 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: frontend-deployment
+  labels:
+    app: frontend
+
+spec:
+  template:
+    metadata:
+      name: pod-my-nginx
+      labels:
+        env: production
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+
+  selector:
+    matchLabels:
+      env: production
+
+  replicas: 4
