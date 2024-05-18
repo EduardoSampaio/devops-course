@@ -30,3 +30,8 @@ kubectl exec -it tomcat-pod -- bash
 kubectl create namespace frontend --save-config
 kubectl config set-context --current --namespace=frontend
 kubectl delete pods my-pod --namespace=frontend
+
+-- service --
+kubectl describe services myapp-service
+kubectl delete all --all
+minikube service --url myapp-service --namespace=default
