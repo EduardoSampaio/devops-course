@@ -4,6 +4,7 @@ kubectl get pods --all-namespaces
 kubectl get pods -o wide
 kubectl get replicasets
 kubectl get namespaces
+kubectl get pods wide --field-selector spec.nodeName=minikube
 
 kubectl run my-pod-apache-server --image httpd
 
@@ -35,3 +36,9 @@ kubectl delete pods my-pod --namespace=frontend
 kubectl describe services myapp-service
 kubectl delete all --all
 minikube service --url myapp-service --namespace=default
+
+--- daemon set---
+minikube node add
+kubectl get ds
+kubectl delete ds my-deamonset
+kubectl delete ds  my-daemonset --cascade=orphan
