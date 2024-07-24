@@ -18,6 +18,7 @@ kubectl create -f my-pod-yaml
 kubectl apply -f pods/my-pod.yaml --namespace=frontend
 
 -- deployment ---
+kubectl rollout undo deployments.apps/frontend-deployment
 kubectl rollout status deployments.apps/frontend-deployment
 kubectl rollout history deployments.apps/frontend-deployment
 kubectl rollout pause history deployments.apps/frontend-deployment
@@ -36,9 +37,19 @@ kubectl delete pods my-pod --namespace=frontend
 kubectl describe services myapp-service
 kubectl delete all --all
 minikube service --url myapp-service --namespace=default
+kubectl expose deployment jupyter-dp -n jupyter --type=NodePort --name=jupyter-svc
 
 --- daemon set---
 minikube node add
+minikube node delete "nome"
 kubectl get ds
 kubectl delete ds my-deamonset
 kubectl delete ds  my-daemonset --cascade=orphan
+
+--- jobs ---
+kubectl get jobs
+
+--- config map--
+kubectl create cm my-cm \
+--from-file=my-app-file.txt \
+--from-literal=my-description=testing

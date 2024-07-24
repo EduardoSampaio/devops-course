@@ -1,0 +1,20 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: pod-cm-vol
+spec:
+  containers:
+  - name: my-container
+    image: nginx
+    envFrom:
+    - configMapRef:
+        name: my-cm
+    volumeMounts:
+    - name: my-vol
+      mountPath: "/etc/my-vol"
+      readOnly: true
+
+  volumes:
+  - name: my-vol
+    configMap:
+      name: my-cm
