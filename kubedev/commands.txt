@@ -1,0 +1,31 @@
+
+--Criando Cluster com kind
+kind create cluster --name multi-node --config=cluster-one-control-plane.yaml
+
+--Criando Pod
+kubectl apply -f meuprimeiropod.yaml
+
+--Detalhe do Pod
+kubectl describe pod nome_pod
+
+-- Deletando Pod
+kubectl delete pod -l versao=azul
+kubectl delete pod nome_pod
+
+-- Acessando Pod
+kubectl port-forward pod/meuprimeiropod 9191:80  --address 0.0.0.0
+
+-- Criando Replicas
+kubectl scale replicaset nome_resplicaset --replicas=15
+
+-- Deletando replicaset
+kubectl delete replicaset meuprimeiroreplicaset
+
+-- Visualizar versões anteriores  do deployment
+kubectl rollout history deployment nome_deployment
+
+-- Voltar Versao deployment
+kubectl rollout und deployment meuprimeirodeployment
+
+-- Trocando imagem deployment
+kubectl set image deployment meuprimeirodeployment meucontainer=kubedevio/nginx-color:green

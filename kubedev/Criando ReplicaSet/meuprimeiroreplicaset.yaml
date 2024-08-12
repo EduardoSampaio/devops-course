@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: meuprimeiroreplicaset
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: exemplo
+  template:
+    metadata:
+      labels:
+        app: exemplo
+    spec:
+      containers:
+        - name: meucontainer
+          image: kubedevio/nginx-color:blue
