@@ -1,19 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: api
+  name: blue
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: api
+      app: blue
   template:
     metadata:
       labels:
-        app: api
+        app: blue
     spec:
       containers:
         - name: api
           image: kubedevio/nginx-color:blue
           ports:
-            - containerPort: 9001
+            - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: blue-service
+spec:
+  type: LoadBalancer
+  selector:
+    type: blue
+  ports:
+    - port: 80
+      targetPort: 80

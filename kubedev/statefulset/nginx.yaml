@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: nginx-state
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  serviceName: nginx-state
+  replicas: 4
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      initContainers:
+        - name: volume-page
+          image: busybox
+          command:
+            ["sh", "-c", "echo $(hostname) > /usr/share/nginx/html/index.html"]
+          volumeMounts:
+            - mountPath: /usr/share/nginx/html
+              name: www
+      containers:
+        - name: nginx
+          image: nginx
+          ports:
+            - containerPort: 80
+              name: web
+          volumeMounts:
+            - mountPath: /usr/share/nginx/html
+              name: www
+  volumeClaimTemplates:
+    - metadata:
+        name: www
+      spec:
+        accessModes:
+          - "ReadWriteOnce"
+        storageClassName: "standard"
+        resources:
+          requests:
+            storage: 1Gi

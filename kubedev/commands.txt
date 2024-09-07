@@ -29,3 +29,5 @@ kubectl rollout und deployment meuprimeirodeployment
 
 -- Trocando imagem deployment
 kubectl set image deployment meuprimeirodeployment meucontainer=kubedevio/nginx-color:green
+
+kubectl port-forward services/myapp-service 30008:80 --address="0.0.0.0"

@@ -20,7 +20,7 @@ kind: Service
 metadata:
   name: myapp-service
 spec:
-  type: LoadBalancer #ClusteIP ou NodePort ou LoadBalancer ou ExternalName
+  type: NodePort #ClusteIP ou NodePort ou LoadBalancer ou ExternalName
   selector:
     type: web-app
   ports:
@@ -28,5 +28,3 @@ spec:
       port: 80
       targetPort: 80
       nodePort: 30008
-  externalIPs:
-    - 192.168.1.101
