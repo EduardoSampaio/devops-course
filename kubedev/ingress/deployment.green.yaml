@@ -23,7 +23,7 @@ kind: Service
 metadata:
   name: green-service
 spec:
-  type: LoadBalancer
+  type: NodePort
   selector:
     type: green
   ports:
